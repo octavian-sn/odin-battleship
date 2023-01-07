@@ -28,3 +28,7 @@ test('passed invalid position by y-axis', () => {
 test('passed invalid position by length on y-axis', () => {
   expect(GameBoard().isEmpty(9, 4, 'v', 3)).toEqual('Invalid area');
 });
+
+test('board is NOT empty', () => {
+  expect(GameBoard().placeShip(0, 0, 'v', 4).isEmpty('board')).toEqual(false);
+});

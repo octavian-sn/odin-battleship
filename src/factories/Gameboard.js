@@ -1,3 +1,5 @@
+import Ship from './ship';
+
 const GameBoard = () => {
   // Ship container
   const ships = [];
@@ -65,6 +67,15 @@ const GameBoard = () => {
       return result;
     },
 
+    placeShip(x, y, orientation, length) {
+      const ship = Ship(length);
+      let area;
+      if (this.isEmpty(x, y, orientation, length)) {
+        area = getBoardArea(x, y, orientation, length);
+        area.forEach((cell) => cell[0] = ship);
+      }
+      return this;
+    },
   };
 };
 
