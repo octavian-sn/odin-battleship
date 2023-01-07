@@ -17,18 +17,22 @@ const GameBoard = () => {
   })();
 
   // Check coordinates for validity
-  const validateInterval = (a, b, c) => {
-    if (a < 10 && a >= 0 && b < 10 && b >= 0 && c + b < 9) return true;
+  const validateInterval = (a, b, c, d) => {
+    if (a < 10 && a >= 0 && b < 10 && b >= 0) {
+      if (c === 'h' && b + d <= 10) return true;
+      if (c === 'v' && a + d <= 10) return true;
+    }
+    return false;
   };
 
   // Return board area
   const getBoardArea = (x, y, orientation, length) => {
     let field = 'Invalid area';
-    if (orientation === 'h' && validateInterval(x, y, length)) {
+    if (orientation === 'h' && validateInterval(x, y, orientation, length)) {
       const row = board[x];
-      field = row.slice(y, length + 1);
+      field = row.slice(y, y + length);
     }
-    if (orientation === 'v' && validateInterval(x, y, length)) {
+    if (orientation === 'v' && validateInterval(x, y, orientation, length)) {
       field = [];
       for (let i = x; i < (x + length); i++) {
         field.push(board[i][y]);
@@ -47,6 +51,12 @@ const GameBoard = () => {
     isEmpty(x, y, orientation, length) {
       let result;
       const area = getBoardArea(x, y, orientation, length);
+      // Check if entire board is empty, every row should return true
+      if (x === 'board') {
+        if (board.every((row) => (row.every((cell) => cell[0] === '')) === true)) return true;
+        return false;
+      }
+      // Check if area is empty or return invalid area input
       if (Array.isArray(area) && area.every((cell) => cell[0] === '')) {
         result = true;
       } else if ((Array.isArray(area) && area.every((cell) => cell[0] !== ''))) {
