@@ -79,13 +79,20 @@ const GameBoard = () => {
       return this;
     },
 
-    // Attack a position
+    // Attack a position and return that position
     receiveAttack(x, y) {
       let cell = getBoardArea(x, y)[0][0];
       if (cell === 0 || cell === 1) return;
-      if (typeof cell === 'object') cell = 1;
-      else cell = 0;
+      if (typeof cell === 'object') {
+        cell.hit();
+        cell = 1;
+      } else cell = 0;
       return cell;
+    },
+
+    // Check if all ships have been sunk
+    allSunk() {
+      return ships.every((ship) => ship.isSunk() === true);
     },
 
   };
