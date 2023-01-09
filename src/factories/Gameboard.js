@@ -27,8 +27,8 @@ const GameBoard = () => {
     return false;
   };
 
-  // Return board area
-  const getBoardArea = (x, y, orientation, length) => {
+  // Return board area or 'invalid area' message
+  const getBoardArea = (x, y, orientation = 'h', length = 1) => {
     let field = 'Invalid area';
     if (orientation === 'h' && validateInterval(x, y, orientation, length)) {
       const row = board[x];
@@ -49,9 +49,8 @@ const GameBoard = () => {
       return board;
     },
 
-    // Check if a area is empty
+    // Check if area is empty, return true or false, or 'invalid area'
     isEmpty(x, y, orientation, length) {
-      let result;
       const area = getBoardArea(x, y, orientation, length);
       // Check if entire board is empty, every row should return true
       if (x === 'board') {
@@ -60,22 +59,35 @@ const GameBoard = () => {
       }
       // Check if area is empty or return invalid area input
       if (Array.isArray(area) && area.every((cell) => cell[0] === '')) {
-        result = true;
-      } else if ((Array.isArray(area) && area.every((cell) => cell[0] !== ''))) {
-        result = false;
-      } else result = area;
-      return result;
+        return true;
+      } if ((Array.isArray(area) && area.every((cell) => cell[0] !== ''))) {
+        return false;
+      } return area;
     },
 
+    // Place ship at coordinates if condition var is true or array type
     placeShip(x, y, orientation, length) {
-      const ship = Ship(length);
-      let area;
-      if (this.isEmpty(x, y, orientation, length)) {
-        area = getBoardArea(x, y, orientation, length);
+      const condition = this.isEmpty(x, y, orientation, length);
+      if (Array.isArray(condition) || condition === true) {
+        const ship = Ship(length);
+        const area = getBoardArea(x, y, orientation, length);
+        // Place the ship in each cell from selected area
         area.forEach((cell) => cell[0] = ship);
+        // Add ship to board's ships array
+        ships.push(ship);
       }
       return this;
     },
+
+    // Attack a position
+    receiveAttack(x, y) {
+      let cell = getBoardArea(x, y)[0][0];
+      if (cell === 0 || cell === 1) return;
+      if (typeof cell === 'object') cell = 1;
+      else cell = 0;
+      return cell;
+    },
+
   };
 };
 

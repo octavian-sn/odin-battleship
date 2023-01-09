@@ -32,3 +32,19 @@ test('passed invalid position by length on y-axis', () => {
 test('board is NOT empty', () => {
   expect(GameBoard().placeShip(0, 0, 'v', 4).isEmpty('board')).toEqual(false);
 });
+
+test('position is NOT empty', () => {
+  expect(GameBoard().placeShip(7, 2, 'h', 3).isEmpty(7, 2, 'h', 3)).toEqual(false);
+});
+
+test('board is empty because position was invalid', () => {
+  expect(GameBoard().placeShip(9, 0, 'v', 4).isEmpty('board')).toEqual(true);
+});
+
+test('position is marked as a miss after an attack', () => {
+  expect(GameBoard().receiveAttack(4, 4)).toEqual(0);
+});
+
+test('position is marked as a hit after an attack', () => {
+  expect(GameBoard().placeShip(3, 8, 'v', 4).receiveAttack(5, 8)).toEqual(1);
+});
