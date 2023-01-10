@@ -27,6 +27,20 @@ const GameBoard = () => {
     return false;
   };
 
+  // Random coordinates generator
+  const randomCoord = (length) => {
+    const coord = [];
+    const orientation = ['h', 'v'];
+    const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+
+    for (let i = 0; i < 4; i++) {
+      if (i === 2) coord.push(orientation[random(0, 1)]);
+      else if (i === 3) coord.push(length);
+      else coord.push(random(0, 9));
+    }
+    return coord;
+  };
+
   // Return board area or 'invalid area' message
   const getBoardArea = (x, y, orientation = 'h', length = 1) => {
     let field = 'Invalid area';
@@ -81,18 +95,33 @@ const GameBoard = () => {
 
     // Attack a position and return that position
     receiveAttack(x, y) {
-      let cell = getBoardArea(x, y)[0][0];
+      const cell = board[x][y][0];
       if (cell === 0 || cell === 1) return;
       if (typeof cell === 'object') {
         cell.hit();
-        cell = 1;
-      } else cell = 0;
-      return cell;
+        board[x][y][0] = 1;
+      } else board[x][y][0] = 0;
+      return board[x][y][0];
     },
 
     // Check if all ships have been sunk
     allSunk() {
       return ships.every((ship) => ship.isSunk() === true);
+    },
+
+    // Populate the board with random ships
+    randomShips() {
+      const shipLengths = [5, 4, 3, 2, 1];
+      let coordinates = randomCoord(shipLengths[0]);
+
+      while (ships.length < 5) {
+        const condition = this.isEmpty(...coordinates);
+        if (Array.isArray(condition) || condition === true) {
+          this.placeShip(...coordinates);
+          shipLengths.shift();
+        } else coordinates = randomCoord(shipLengths[0]);
+      }
+      return this;
     },
 
   };

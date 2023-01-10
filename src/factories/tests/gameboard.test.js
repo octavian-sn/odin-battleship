@@ -1,4 +1,4 @@
-import GameBoard from '../Gameboard';
+import GameBoard from '../gameboard';
 
 test('if board is empty', () => {
   expect(GameBoard().isEmpty('board')).toEqual(true);
@@ -57,7 +57,7 @@ test('if ships are sunk with one out of two sunk', () => {
   board.placeShip(0, 3, 'v', 3);
   board.placeShip(0, 5, 'h', 2);
   const attacks = [[0, 3], [1, 3], [2, 3], [0, 5]];
-  attacks.forEach((attack) => board.receiveAttack(attack));
+  attacks.forEach((attack) => board.receiveAttack(attack[0], attack[1]));
   expect(board.allSunk()).toEqual(false);
 });
 
@@ -77,4 +77,15 @@ test('if ships are sunk with three out of three sunk', () => {
   const attacks = [[8, 1], [9, 1], [2, 7], [2, 8], [2, 9], [4, 2], [5, 2], [6, 2], [7, 2]];
   attacks.forEach((attack) => board.receiveAttack(attack[0], attack[1]));
   expect(board.allSunk()).toEqual(true);
+});
+
+test('attacking the same location twice', () => {
+  const board = GameBoard();
+  board.placeShip(0, 0, 'v', 3);
+  board.receiveAttack(1, 0);
+  expect(board.receiveAttack(1, 0)).toEqual(undefined);
+});
+
+test('populate board with random ships', () => {
+  expect(GameBoard().randomShips().allSunk()).toEqual(false);
 });
