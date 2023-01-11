@@ -3,6 +3,10 @@
   src: url(./AlfaSlabOne-Regular.ttf);
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: rgb(228, 226, 224);
   display: grid;
@@ -33,6 +37,16 @@ header {
   width: 280px;
   height: 280px;
   border: 2px solid black;
+  display: grid;
+
+  grid-template-columns: repeat(10, 1fr);
+  /* grid-template-rows: repeat(10 1fr); */
+}
+
+.cell {
+  /* height: 28px;
+  width: 28px; */
+  border: 1px solid gray;
 }
 
 /* Footer */

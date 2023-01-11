@@ -1,0 +1,20 @@
+function createGrid() {
+  const firstBoard = document.getElementById('first-block');
+  const secondBoard = document.getElementById('second-block');
+  const arr = [firstBoard, secondBoard];
+
+  arr.forEach((board) => {
+    const container = board;
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
+        const square = document.createElement('div');
+        square.classList.add('cell');
+        square.dataset.x = i;
+        square.dataset.y = j;
+        container.appendChild(square);
+      }
+    }
+  });
+}
+
+export default createGrid;
