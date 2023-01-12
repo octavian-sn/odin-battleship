@@ -38,15 +38,28 @@ header {
   height: 280px;
   border: 2px solid black;
   display: grid;
-
   grid-template-columns: repeat(10, 1fr);
   /* grid-template-rows: repeat(10 1fr); */
 }
 
-.cell {
-  /* height: 28px;
-  width: 28px; */
+.cell,
+.miss,
+.hit {
   border: 1px solid gray;
+}
+
+#second-block .cell:hover {
+  /* border: 1px solid rgb(61, 5, 5); */
+  background-color: rgba(0, 0, 0, 0.267);
+}
+
+.miss {
+  background-color: rgba(102, 94, 94, 0.233);
+}
+
+.hit {
+  color: rgb(134, 17, 17);
+  background-color: rgba(219, 76, 76, 0.438);
 }
 
 /* Footer */

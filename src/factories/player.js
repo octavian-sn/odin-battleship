@@ -56,7 +56,7 @@ const Player = (board) => {
       // Remove the attack from the main attacks array
       attacks.splice(indxOfAtk(x, y), 1);
 
-      return recommendedAttacks.length;
+      return [x, y, result];
     },
   };
 };

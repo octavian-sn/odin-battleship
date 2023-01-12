@@ -1,4 +1,4 @@
-function createGrid() {
+export function createGrid() {
   const firstBoard = document.getElementById('first-block');
   const secondBoard = document.getElementById('second-block');
   const arr = [firstBoard, secondBoard];
@@ -17,4 +17,12 @@ function createGrid() {
   });
 }
 
-export default createGrid;
+export function markMiss(cell) {
+  cell.classList.add('miss');
+  cell.classList.remove('cell');
+}
+
+export function markHit(cell) {
+  cell.classList.add('hit');
+  cell.classList.remove('cell');
+}

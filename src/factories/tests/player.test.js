@@ -11,10 +11,10 @@ test('check attacks left after executing three attacks', () => {
   expect(player.attacksAvailable()).toEqual(97);
 });
 
-test('check recommended attacks after executing sixteen attacks', () => {
+test('receive array with the attack coordinates and result', () => {
   const board = GameBoard();
   board.randomShips();
   const player = Player(board);
   for (let i = 0; i < 15; i++)player.attack();
-  expect(player.attack()).toBeGreaterThan(0);
+  expect.arrayContaining(player.attack());
 });

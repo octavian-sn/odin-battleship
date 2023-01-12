@@ -1,7 +1,7 @@
 import Ship from '../ship';
 
 test('create new ship', () => {
-  expect(Ship(13).getHealth()).toBe(4);
+  expect(Ship(4).getHealth()).toBe(4);
 });
 
 test('test if new ship is sunk', () => {
