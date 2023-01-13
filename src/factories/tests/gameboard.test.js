@@ -9,11 +9,11 @@ test('empty position on x-axis', () => {
 });
 
 test('passed invalid position by x-axis', () => {
-  expect(GameBoard().isEmpty(10, 3, 'h', 4)).toEqual('Invalid area');
+  expect(GameBoard().isEmpty(10, 3, 'h', 4)).toBe(false);
 });
 
 test('passed invalid position by length on x-axis', () => {
-  expect(GameBoard().isEmpty(1, 9, 'h', 4)).toEqual('Invalid area');
+  expect(GameBoard().isEmpty(1, 9, 'h', 4)).toBe(false);
 });
 
 test('empty position on y-axis', () => {
@@ -21,11 +21,11 @@ test('empty position on y-axis', () => {
 });
 
 test('passed invalid position by y-axis', () => {
-  expect(GameBoard().isEmpty(4, 11, 'v', 2)).toEqual('Invalid area');
+  expect(GameBoard().isEmpty(4, 11, 'v', 2)).toBe(false);
 });
 
 test('passed invalid position by length on y-axis', () => {
-  expect(GameBoard().isEmpty(9, 4, 'v', 3)).toEqual('Invalid area');
+  expect(GameBoard().isEmpty(9, 4, 'v', 3)).toBe(false);
 });
 
 test('board is NOT empty', () => {

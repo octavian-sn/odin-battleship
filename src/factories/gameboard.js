@@ -43,7 +43,7 @@ const GameBoard = () => {
 
   // Return board area or 'invalid area' message
   const getBoardArea = (x, y, orientation = 'h', length = 1) => {
-    let field = 'Invalid area';
+    let field = false;
     if (orientation === 'h' && validateInterval(x, y, orientation, length)) {
       const row = board[x];
       field = row.slice(y, y + length);
@@ -57,12 +57,16 @@ const GameBoard = () => {
     return field;
   };
 
+  // For testing purposes~~
+  const areas = [];
+
   return {
     // Return board
     getBoard() {
       return board;
     },
 
+    // For testing purposes~~
     getShips() {
       const arr = [];
       board.forEach((row) => {
@@ -70,7 +74,10 @@ const GameBoard = () => {
           if (typeof cell[0] === 'object') arr.push(cell[0].getHealth());
         });
       });
-      return arr;
+      return {
+        areas,
+        arr,
+      };
     },
 
     // Check if area is empty, return true or false, or 'invalid area'
@@ -84,9 +91,8 @@ const GameBoard = () => {
       // Check if area is empty or return invalid area input
       if (Array.isArray(area) && area.every((cell) => cell[0] === '')) {
         return true;
-      } if ((Array.isArray(area) && area.every((cell) => cell[0] !== ''))) {
-        return false;
-      } return area;
+      }
+      return false;
     },
 
     // Place ship at coordinates if condition var is true or array type
@@ -99,6 +105,8 @@ const GameBoard = () => {
         area.forEach((cell) => cell[0] = ship);
         // Add ship to board's ships array
         ships.push(ship);
+        // For testing purposes~~
+        areas.push([x, y, orientation, length]);
       }
       return this;
     },

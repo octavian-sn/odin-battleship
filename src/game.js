@@ -52,3 +52,10 @@ export function playTurn(e) {
     if (!checkForWinner('You have won', result, e.target, robotBoard)) playRobot();
   }
 }
+
+export function testing() {
+  console.log(
+    humanBoard.getShips(),
+    robotBoard.getShips(),
+  );
+}

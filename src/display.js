@@ -1,4 +1,4 @@
-export function createGrid() {
+export const createGrid = function () {
   const firstBoard = document.getElementById('first-block');
   const secondBoard = document.getElementById('second-block');
   const pickBlock = document.getElementById('pick-block');
@@ -18,14 +18,19 @@ export function createGrid() {
       }
     }
   });
-}
+};
 
-export function markMiss(cell) {
+export const markMiss = function (cell) {
   cell.classList.add('miss');
   cell.classList.remove('cell');
-}
+};
 
-export function markHit(cell) {
+export const markHit = function (cell) {
   cell.classList.add('hit');
   cell.classList.remove('cell');
-}
+};
+
+export const loadModal = function () {
+  document.getElementById('modal').classList.add('active');
+  document.getElementById('overlay').classList.add('active');
+};
