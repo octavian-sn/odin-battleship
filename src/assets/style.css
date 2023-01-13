@@ -8,10 +8,15 @@
 }
 
 body {
+  margin: 0;
+  border: 0;
+}
+
+#game-window {
   background-color: rgb(228, 226, 224);
   display: grid;
-  grid-template-rows: 7% 90% 3%;
-  height: 98vh;
+  grid-template-rows: 7% 86% 7%;
+  height: 100vh;
 }
 
 header {
@@ -78,7 +83,9 @@ a {
 #footer {
   grid-row: 3 / 4;
   width: 100%;
-  background-color: var(--dark-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .git {
@@ -91,11 +98,7 @@ a {
   gap: 10px;
 }
 
-#new-game {
-  position: absolute;
-  /* bottom: 48%; */
-  align-items: center;
-  justify-self: center;
+button {
   background-color: rgba(236, 227, 227, 0.233);
   border: 5px solid rgb(63, 63, 63);
   border-left-color: rgb(88, 88, 88);
@@ -104,6 +107,13 @@ a {
   font-family: 'MyFont';
   font-size: 1rem;
   cursor: pointer;
+}
+
+/* New game button */
+#new-game {
+  position: absolute;
+  align-items: center;
+  justify-self: center;
 }
 
 #new-game:active {

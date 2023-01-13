@@ -6,24 +6,46 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Battleship</title>
+  <link rel="icon" href="../src/assets/icon.png" type="image/icon type">
   <script src="main.js" defer></script>
   <script src="https://kit.fontawesome.com/bd42b76155.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <header>BATTLESHIP</header>
-  <div id="content">
-    <div id="first-block"></div>
-    <div id="second-block"></div>
-    <button id="new-game">NEW GAME</button>
-  </div>
-  <div id="footer">
-    <span class="git">
-      <a href="https://github.com/octavian-sn">
-        <img id="git-hub" src="../src/assets/gitb.png" alt="GitHub Logo" height="30px">
-      </a>
-      Created by Octavian Șulic © 2022 TheOdinProject
-    </span>
+  <div id="game-window">
+    <header>BATTLESHIP</header>
+    <div id="content">
+      <div id="first-block"></div>
+      <div id="second-block"></div>
+      <button id="new-game">NEW GAME</button>
+    </div>
+    <div id="footer">
+      <span class="git">
+        <a href="https://github.com/octavian-sn">
+          <img id="git-hub" src="../src/assets/gitb.png" alt="GitHub Logo" height="30px">
+        </a>
+        Created by Octavian Șulic © 2022 TheOdinProject
+      </span>
+    </div>
+    <div class="modal " id="modal">
+      <div id="modal__window">
+        <div id="pick-block"></div>
+        <div id="piece"></div>
+        <div id="instructions">
+          <ul>
+            <h3>Instructions</h4>
+              <li>Drag & drop the piece onto the gameboard.</li>
+              <li>Click the piece to change orientation.</li>
+              <li>If position is invalid, board will not accept it.</li>
+          </ul>
+        </div>
+        <div id="buttons">
+          <button>RANDOM</button>
+          <button>START</button>
+        </div>
+      </div>
+    </div>
+    <div id="overlay" class=""></div>
   </div>
 </body>
 

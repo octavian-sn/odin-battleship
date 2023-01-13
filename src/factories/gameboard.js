@@ -63,6 +63,16 @@ const GameBoard = () => {
       return board;
     },
 
+    getShips() {
+      const arr = [];
+      board.forEach((row) => {
+        row.forEach((cell) => {
+          if (typeof cell[0] === 'object') arr.push(cell[0].getHealth());
+        });
+      });
+      return arr;
+    },
+
     // Check if area is empty, return true or false, or 'invalid area'
     isEmpty(x, y, orientation, length) {
       const area = getBoardArea(x, y, orientation, length);

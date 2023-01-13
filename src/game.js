@@ -1,13 +1,7 @@
 import GameBoard from './factories/gameboard';
 import Player from './factories/player';
-import { createGrid, markMiss, markHit } from './display';
-import './assets/style.css';
-import './assets/modal.css';
+import { markMiss, markHit } from './display';
 
-const modal = document.getElementById('modal');
-const overlay = document.getElementById('overlay');
-const newGameButton = document.getElementById('new-game');
-const robotSquare = document.getElementById('second-block');
 let humanSquareCells;
 
 // Create boards for both players, and create AI player
@@ -16,7 +10,7 @@ let robotBoard;
 let enemy;
 let gameOngoing = true;
 
-function newGame() {
+export function newGame() {
 // Create boards for both players, and create AI player
   humanBoard = GameBoard();
   robotBoard = GameBoard();
@@ -25,7 +19,6 @@ function newGame() {
   // Populate boards with random ships and create the cell grid inside squares
   humanBoard.randomShips();
   robotBoard.randomShips();
-  createGrid();
 
   // Select the DOM squares after creating the grid to display feedback from attacks
   humanSquareCells = Array.from(document.getElementById('first-block').childNodes);
@@ -51,7 +44,7 @@ function playRobot() {
   checkForWinner('Computer has won', result[2], cell, humanBoard);
 }
 
-function playTurn(e) {
+export function playTurn(e) {
   // If cell hasn't been attacked yet
   if (e.target.classList.contains('cell') && gameOngoing === true) {
     // Attack robot board and mark cell  according to result
@@ -59,26 +52,3 @@ function playTurn(e) {
     if (!checkForWinner('You have won', result, e.target, robotBoard)) playRobot();
   }
 }
-
-newGame();
-
-robotSquare.addEventListener('click', (e) => {
-  playTurn(e);
-});
-
-newGameButton.addEventListener('click', () => {
-  newGame();
-});
-
-// window.addEventListener('load', () => {
-//   overlay.classList.add('active');
-//   modal.classList.add('active');
-// });
-
-function testCheck() {
-  console.log(
-    `Human board:${humanBoard.getShips()},${humanBoard.getShips().length}  \n`,
-    `Robot board:${robotBoard.getShips()}, ${robotBoard.getShips().length}`,
-  );
-}
-document.getElementById('first-block').addEventListener('click', () => testCheck());
