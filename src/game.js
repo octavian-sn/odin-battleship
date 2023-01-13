@@ -10,7 +10,7 @@ let robotBoard;
 let enemy;
 let gameOngoing = true;
 
-export function newGame() {
+export function newGame(robotsTarget) {
 // Create boards for both players, and create AI player
   humanBoard = GameBoard();
   robotBoard = GameBoard();
@@ -21,7 +21,7 @@ export function newGame() {
   robotBoard.randomShips();
 
   // Select the DOM squares after creating the grid to display feedback from attacks
-  humanSquareCells = Array.from(document.getElementById('first-block').childNodes);
+  humanSquareCells = Array.from(robotsTarget.childNodes);
   gameOngoing = true;
 }
 
