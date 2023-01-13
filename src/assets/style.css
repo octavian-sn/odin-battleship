@@ -17,11 +17,12 @@ body {
 header {
   font-family: 'MyFont';
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 3rem;
   grid-row: 1 / 2;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-shadow: 0 17px 5px rgb(163, 163, 163);
 }
 
 /* Content */
@@ -30,15 +31,20 @@ header {
   justify-content: center;
   align-items: center;
   grid-template-rows: 50% 50%;
+  /* gap: 10%; */
 }
 
 #first-block,
 #second-block {
   width: 280px;
   height: 280px;
-  border: 2px solid black;
+  border: 7px solid rgb(63, 63, 63);
+  border-left-color: rgb(88, 88, 88);
+  border-bottom-color: rgb(109, 109, 109);
+  border-right-color: rgb(150, 150, 150);
   display: grid;
   grid-template-columns: repeat(10, 1fr);
+  box-shadow: 5px 5px 15px rgb(96, 98, 99);
   /* grid-template-rows: repeat(10 1fr); */
 }
 
@@ -81,4 +87,25 @@ a {
   font-size: 0.8rem;
   height: 100%;
   gap: 10px;
+}
+
+/* Desktop */
+@media only screen and (min-width: 768px) {
+  header {
+    padding-top: 80px;
+    font-size: 6rem;
+  }
+
+  #content {
+    grid-template-columns: 50% 50%;
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+  }
+
+  #first-block,
+  #second-block {
+    width: 350px;
+    height: 350px;
+  }
 }
