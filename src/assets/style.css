@@ -10,7 +10,7 @@
 body {
   background-color: rgb(228, 226, 224);
   display: grid;
-  grid-template-rows: 10% 85% 5%;
+  grid-template-rows: 7% 90% 3%;
   height: 98vh;
 }
 
@@ -31,7 +31,7 @@ header {
   justify-content: center;
   align-items: center;
   grid-template-rows: 50% 50%;
-  /* gap: 10%; */
+  position: relative;
 }
 
 #first-block,
@@ -45,7 +45,6 @@ header {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   box-shadow: 5px 5px 15px rgb(96, 98, 99);
-  /* grid-template-rows: repeat(10 1fr); */
 }
 
 .cell,
@@ -55,8 +54,9 @@ header {
 }
 
 #second-block .cell:hover {
-  /* border: 1px solid rgb(61, 5, 5); */
-  background-color: rgba(0, 0, 0, 0.267);
+  background: url('./target.png');
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .miss {
@@ -64,8 +64,10 @@ header {
 }
 
 .hit {
-  color: rgb(134, 17, 17);
-  background-color: rgba(219, 76, 76, 0.438);
+  background: url('./hit.png');
+  background-color: rgba(102, 94, 94, 0.233);
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /* Footer */
@@ -89,6 +91,25 @@ a {
   gap: 10px;
 }
 
+#new-game {
+  position: absolute;
+  /* bottom: 48%; */
+  align-items: center;
+  justify-self: center;
+  background-color: rgba(236, 227, 227, 0.233);
+  border: 5px solid rgb(63, 63, 63);
+  border-left-color: rgb(88, 88, 88);
+  border-bottom-color: rgb(109, 109, 109);
+  border-right-color: rgb(150, 150, 150);
+  font-family: 'MyFont';
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#new-game:active {
+  background-color: rgba(107, 100, 100, 0.233);
+}
+
 /* Desktop */
 @media only screen and (min-width: 768px) {
   header {
@@ -107,5 +128,11 @@ a {
   #second-block {
     width: 350px;
     height: 350px;
+  }
+
+  #new-game {
+    border-width: 5px;
+    bottom: 8%;
+    font-size: 1.5rem;
   }
 }

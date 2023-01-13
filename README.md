@@ -1,7 +1,7 @@
 # Battleship project 
-### from The Odin Project's [curriculum](https://www.theodinproject.com/lessons/node-path-javascript-battleship)
+#### from The Odin Project's [curriculum](https://www.theodinproject.com/lessons/node-path-javascript-battleship)
 
--- [Live preview](https://octavian-sn.github.io/odin-battleship/)
+--> [Live Demo](https://octavian-sn.github.io/odin-battleship/) <--
 
 ## Built with
 - HTML, CSS, JS
