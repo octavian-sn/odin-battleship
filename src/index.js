@@ -3,24 +3,36 @@ import Player from './factories/player';
 import { createGrid, markMiss, markHit } from './display';
 import './assets/style.css';
 
-// Create boards for both players, and create AI player
-const humanBoard = GameBoard();
-const robotBoard = GameBoard();
-const enemy = Player(humanBoard);
-
-// Populate boards with random ships and create the cell grid inside squares
-humanBoard.randomShips();
-robotBoard.randomShips();
-createGrid();
-
-// Select the DOM squares to display feedback from attacks
+const newGameButton = document.getElementById('new-game');
 const robotSquare = document.getElementById('second-block');
-const humanSquareCells = Array.from(document.getElementById('first-block').childNodes);
+let humanSquareCells;
+
+// Create boards for both players, and create AI player
+let humanBoard;
+let robotBoard;
+let enemy;
+let gameOngoing = true;
+
+function newGame() {
+// Create boards for both players, and create AI player
+  humanBoard = GameBoard();
+  robotBoard = GameBoard();
+  enemy = Player(humanBoard);
+
+  // Populate boards with random ships and create the cell grid inside squares
+  humanBoard.randomShips();
+  robotBoard.randomShips();
+  createGrid();
+
+  // Select the DOM squares after creating the grid to display feedback from attacks
+  humanSquareCells = Array.from(document.getElementById('first-block').childNodes);
+}
 
 function checkForWinner(person, result, cell, board) {
   if (result === 1) markHit(cell);
   if (result === 0) markMiss(cell);
   if (board.allSunk() === true) {
+    gameOngoing = false;
     alert(`All ships have been sunk. ${person} the game!`);
     return;
   }
@@ -37,19 +49,19 @@ function playRobot() {
 
 function playTurn(e) {
   // If cell hasn't been attacked yet
-  if (e.target.classList.contains('cell')) {
+  if (e.target.classList.contains('cell') && gameOngoing === true) {
     // Attack robot board and mark cell  according to result
     const result = robotBoard.receiveAttack(e.target.dataset.x, e.target.dataset.y);
     if (!checkForWinner('You have won', result, e.target, robotBoard)) playRobot();
-    console.log(robotBoard.allSunk());
   }
 }
+
+newGame();
 
 robotSquare.addEventListener('click', (e) => {
   playTurn(e);
 });
 
-const testBoard = document.getElementById('first-block');
-testBoard.addEventListener('click', () => {
-  console.log(robotBoard.getBoard());
+newGameButton.addEventListener('click', () => {
+  newGame();
 });

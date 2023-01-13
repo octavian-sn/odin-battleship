@@ -1,6 +1,8 @@
 export function createGrid() {
   const firstBoard = document.getElementById('first-block');
   const secondBoard = document.getElementById('second-block');
+  firstBoard.innerHTML = '';
+  secondBoard.innerHTML = '';
   const arr = [firstBoard, secondBoard];
 
   arr.forEach((board) => {
