@@ -17,12 +17,14 @@ export function newGame(robotsTarget) {
   enemy = Player(humanBoard);
 
   // Populate boards with random ships and create the cell grid inside squares
-  humanBoard.randomShips();
+  // humanBoard.randomShips();
   robotBoard.randomShips();
 
   // Select the DOM squares after creating the grid to display feedback from attacks
   humanSquareCells = Array.from(robotsTarget.childNodes);
   gameOngoing = true;
+
+  return humanBoard;
 }
 
 function checkForWinner(person, result, cell, board) {

@@ -20,28 +20,6 @@
   gap: 10px;
 }
 
-/* Piece picking block */
-#pick-block {
-  width: 300px;
-  height: 300px;
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  border: 7px solid rgb(63, 63, 63);
-  border-left-color: rgb(88, 88, 88);
-  border-bottom-color: rgb(109, 109, 109);
-  border-right-color: rgb(150, 150, 150);
-}
-
-#piece {
-  height: 140px;
-  width: 140px;
-  border: 2px solid black;
-}
-
-#modal.active {
-  transform: translate(-50%, -50%) scale(1);
-}
-
 /* Overlay */
 #overlay {
   position: fixed;
@@ -58,4 +36,72 @@
 #overlay.active {
   opacity: 1;
   pointer-events: all;
+}
+
+/* Modal contents */
+#pick-block {
+  width: 300px;
+  height: 300px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  border: 7px solid rgb(63, 63, 63);
+  border-left-color: rgb(88, 88, 88);
+  border-bottom-color: rgb(109, 109, 109);
+  border-right-color: rgb(150, 150, 150);
+}
+
+#piece-container {
+  height: 150px;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#piece {
+  /* border: 1px solid gray; */
+  display: flex;
+  flex-direction: row;
+}
+
+#piece .cell {
+  background-color: rgb(59, 59, 59);
+  height: 30px;
+  width: 30px;
+}
+
+#modal.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+#buttons {
+  display: flex;
+  gap: 30px;
+}
+
+#buttons button {
+  width: 110px;
+}
+
+@media only screen and (min-width: 768px) {
+  #modal {
+    height: 800px;
+    width: 500px;
+  }
+
+  #modal__window {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    padding-bottom: 30px;
+    padding-top: 20px;
+  }
+
+  #buttons button {
+    width: 130px;
+    height: 40px;
+    font-size: large;
+  }
 }

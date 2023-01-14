@@ -1,28 +1,57 @@
-import { createGrid, loadModal } from './display';
+import {
+  createGrid, loadModal, renderShip, changeOrientation, displayShip,
+} from './display';
 import { newGame, playTurn, testing } from './game';
 import './assets/style.css';
 import './assets/modal.css';
 
-const newGameButton = document.getElementById('new-game');
-const robotSquare = document.getElementById('second-block');
 const humanSquare = document.getElementById('first-block');
 
 // Create Grid inside the squares and render the game logic
 createGrid();
-newGame(humanSquare);
+const humanBoard = newGame(humanSquare);
+const shipLenghts = [5, 4, 3, 2, 1];
 
-robotSquare.addEventListener('click', (e) => {
+// Attack the computer's board
+document.getElementById('second-block').addEventListener('click', (e) => {
   playTurn(e);
 });
 
-newGameButton.addEventListener('click', () => {
+// Reset game
+document.getElementById('new-game').addEventListener('click', () => {
   createGrid();
   newGame(humanSquare);
 });
 
+// Initial load
 window.addEventListener('load', () => {
-  // loadModal();
+  loadModal();
+  renderShip(5);
 });
+
+// Change orientation of piece
+document.getElementById('piece-container').addEventListener('click', () => {
+  changeOrientation();
+});
+
+// Set piece to board
+const selectingCells = Array.from(document.getElementById('pick-block').childNodes);
+selectingCells.forEach((cell) => cell.addEventListener('drop', (e) => {
+  const piece = document.getElementById('piece');
+  const x = Number(e.target.dataset.x);
+  const y = Number(e.target.dataset.y);
+  const { orientation } = piece.dataset;
+  const length = Number(piece.dataset.length);
+
+  if (humanBoard.isEmpty(x, y, orientation, length)) {
+    console.log(humanBoard.getCellsOfShip(x, y, orientation, length));
+    const cells = humanBoard.getCellsOfShip(x, y, orientation, length);
+    cells.forEach((cell) => displayShip(cell, selectingCells));
+    shipLenghts.shift();
+    renderShip(shipLenghts[0]);
+    // console.log(humanBoard.isEmpty());
+  }
+}));
 
 humanSquare.addEventListener('click', () => {
   testing();

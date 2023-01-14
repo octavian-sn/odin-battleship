@@ -67,17 +67,23 @@ const GameBoard = () => {
     },
 
     // For testing purposes~~
-    getShips() {
-      const arr = [];
-      board.forEach((row) => {
-        row.forEach((cell) => {
-          if (typeof cell[0] === 'object') arr.push(cell[0].getHealth());
-        });
-      });
-      return {
-        areas,
-        arr,
-      };
+    getCellsOfShip(x, y, orientation, length) {
+      const cells = [];
+      for (let i = 0; i < length; i++) {
+        if (orientation === 'h') cells.push([x, y + i]);
+        if (orientation === 'v') cells.push([x + i, y]);
+      }
+      return cells;
+      // const arr = [];
+      // board.forEach((row) => {
+      //   row.forEach((cell) => {
+      //     if (typeof cell[0] === 'object') arr.push(cell[0].getHealth());
+      //   });
+      // });
+      // return {
+      //   areas,
+      //   arr,
+      // };
     },
 
     // Check if area is empty, return true or false, or 'invalid area'
