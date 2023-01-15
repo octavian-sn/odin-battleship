@@ -2,31 +2,28 @@ import GameBoard from './factories/gameboard';
 import Player from './factories/player';
 import { markMiss, markHit } from './display';
 
-let humanSquareCells;
-
-// Create boards for both players, and create AI player
+// Player boards, AI player, div's of humanBoard and gameOngoing to be accessed by other functions
 let humanBoard;
 let robotBoard;
 let enemy;
+let humanSquareCells;
 let gameOngoing = true;
 
-export function newGame(robotsTarget) {
+export function newGame() {
 // Create boards for both players, and create AI player
   humanBoard = GameBoard();
   robotBoard = GameBoard();
   enemy = Player(humanBoard);
 
-  // Populate boards with random ships and create the cell grid inside squares
-  // humanBoard.randomShips();
+  // Populate robot board with random ships
   robotBoard.randomShips();
 
-  // Select the DOM squares after creating the grid to display feedback from attacks
-  humanSquareCells = Array.from(robotsTarget.childNodes);
+  // Set game condition to true and return the human board to be used for ship placing
   gameOngoing = true;
-
   return humanBoard;
 }
 
+// Visually marks the gameboards with hits or misses and check for winner
 function checkForWinner(person, result, cell, board) {
   if (result === 1) markHit(cell);
   if (result === 0) markMiss(cell);
@@ -38,6 +35,7 @@ function checkForWinner(person, result, cell, board) {
   return false;
 }
 
+// Play robot's turn
 function playRobot() {
   // Attack on human board by robot and mark cell according to result
   const result = enemy.attack();
@@ -46,13 +44,19 @@ function playRobot() {
   checkForWinner('Computer has won', result[2], cell, humanBoard);
 }
 
+// Play human's turn
 export function playTurn(e) {
   // If cell hasn't been attacked yet
   if (e.target.classList.contains('cell') && gameOngoing === true) {
-    // Attack robot board and mark cell  according to result
+    // Attack robot board and mark cell according to result
     const result = robotBoard.receiveAttack(e.target.dataset.x, e.target.dataset.y);
+    // If human hasn't won, play the robot's move
     if (!checkForWinner('You have won', result, e.target, robotBoard)) playRobot();
   }
+}
+
+export function retrieveHumanDomBoard(board) {
+  humanSquareCells = Array.from(board.childNodes);
 }
 
 export function testing() {

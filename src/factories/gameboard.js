@@ -66,7 +66,7 @@ const GameBoard = () => {
       return board;
     },
 
-    // For testing purposes~~
+    // Get occupied cells by ships, to use them for visual rendering
     getCellsOfShip(x, y, orientation, length) {
       const cells = [];
       for (let i = 0; i < length; i++) {
@@ -74,16 +74,6 @@ const GameBoard = () => {
         if (orientation === 'v') cells.push([x + i, y]);
       }
       return cells;
-      // const arr = [];
-      // board.forEach((row) => {
-      //   row.forEach((cell) => {
-      //     if (typeof cell[0] === 'object') arr.push(cell[0].getHealth());
-      //   });
-      // });
-      // return {
-      //   areas,
-      //   arr,
-      // };
     },
 
     // Check if area is empty, return true or false, or 'invalid area'

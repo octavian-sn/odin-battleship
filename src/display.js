@@ -1,10 +1,10 @@
 export const createGrid = function () {
   const firstBoard = document.getElementById('first-block');
   const secondBoard = document.getElementById('second-block');
-  const pickBlock = document.getElementById('pick-block');
+  const pickBoard = document.getElementById('pick-block');
   firstBoard.innerHTML = '';
   secondBoard.innerHTML = '';
-  const arr = [firstBoard, secondBoard, pickBlock];
+  const arr = [firstBoard, secondBoard, pickBoard];
 
   arr.forEach((board) => {
     const container = board;
@@ -15,7 +15,7 @@ export const createGrid = function () {
         square.dataset.x = i;
         square.dataset.y = j;
         container.appendChild(square);
-        // If elements are from pickBlock allow Dropping events
+        // If elements are from pickBoard allow Dropping events
         if (board === arr[2]) {
           square.addEventListener('dragover', (e) => {
             e.preventDefault();
@@ -37,10 +37,18 @@ export const markHit = function (cell) {
 };
 
 export const loadModal = function () {
-  document.getElementById('modal').classList.add('active');
-  document.getElementById('overlay').classList.add('active');
+  const modal = document.getElementById('modal');
+  const overlay = document.getElementById('overlay');
+  if (modal.classList.contains('active')) {
+    modal.classList.remove('active');
+    overlay.classList.remove('active');
+  } else {
+    modal.classList.add('active');
+    overlay.classList.add('active');
+  }
 };
 
+// Render ship(piece) to be dragged onto the pickBoard
 export const renderShip = function (a) {
   const container = document.getElementById('piece-container');
   container.innerHTML = '';
@@ -58,17 +66,21 @@ export const renderShip = function (a) {
   container.appendChild(piece);
 };
 
+// Change orientation of ship to be dragged
 export const changeOrientation = function () {
   const piece = document.getElementById('piece');
-  if (piece.style.flexDirection === 'row') {
-    piece.style.flexDirection = 'column';
+  if (piece.classList.contains('horizontal')) {
+    piece.classList.remove('horizontal');
+    piece.classList.add('vertical');
     piece.dataset.orientation = 'v';
   } else {
-    piece.style.flexDirection = 'row';
+    piece.classList.remove('vertical');
+    piece.classList.add('horizontal');
     piece.dataset.orientation = 'h';
   }
 };
 
+// Display ship on pickBoard after being dropped there
 export const displayShip = function (arr, cells) {
   const index = arr[0].toString() + arr[1].toString();
   const cell = cells[Number(index)];
