@@ -19,12 +19,24 @@ const Player = (board) => {
   // Return index of attack to remove recommended attack from the 'attacks' array
   const indxOfAtk = (a, b) => attacks.findIndex((element) => element[0] === a && element[1] === b);
 
-  // Add attacks to recommended list
-  const addRecommended = (x, y) => {
-    if (x - 1 >= 0) recommendedAttacks.push([x - 1, y]);
-    if (x + 1 <= 9) recommendedAttacks.push([x + 1, y]);
-    if (y - 1 >= 0) recommendedAttacks.push([x, y - 1]);
-    if (y + 1 <= 9) recommendedAttacks.push([x, y + 1]);
+  // Check if a specific attack is included in the attacks list
+  const isIncluded = (x, y) => attacks.some((attack) => attack[0] === x && attack[1] === y);
+
+  // Add attacks to recommended list if it's present in the attacks list too
+  const addRecommended = (a, b) => {
+    let x = a - 1;
+    let y = b;
+    if (x >= 0 && isIncluded(x, y)) recommendedAttacks.push([x, y]);
+
+    x = a + 1;
+    if (x <= 9 && isIncluded(x, y)) recommendedAttacks.push([x, y]);
+
+    x = a;
+    y = b - 1;
+    if (y >= 0 && isIncluded(x, y)) recommendedAttacks.push([x, y]);
+
+    y = b + 1;
+    if (y <= 9 && isIncluded(x, y)) recommendedAttacks.push([x, y]);
   };
 
   return {
@@ -50,11 +62,11 @@ const Player = (board) => {
       const x = coordinates[0];
       const y = coordinates[1];
 
-      // If the hit was a success, add the adjacent coordinates to recommended attacks
-      if (result === 1) addRecommended(x, y);
-
       // Remove the attack from the main attacks array
       attacks.splice(indxOfAtk(x, y), 1);
+
+      // If the hit was a success, add the adjacent coordinates to recommended attacks
+      if (result === 1) addRecommended(x, y);
 
       return [x, y, result];
     },
