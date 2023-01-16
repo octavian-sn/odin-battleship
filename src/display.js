@@ -86,3 +86,7 @@ export const displayShip = function (arr, cells) {
   const cell = cells[Number(index)];
   cell.style.backgroundColor = 'rgb(59, 59, 59)';
 };
+
+export const clearDisplayShips = function (cells) {
+  cells.forEach((cell) => cell.style.backgroundColor = '');
+};

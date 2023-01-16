@@ -1,5 +1,5 @@
 import {
-  createGrid, loadModal, renderShip, changeOrientation, displayShip,
+  createGrid, loadModal, renderShip, changeOrientation, displayShip, clearDisplayShips,
 } from './display';
 import {
   newGame, playTurn, retrieveHumanDomBoard,
@@ -10,7 +10,7 @@ import './assets/modal.css';
 // Initial game load
 createGrid();
 let humanBoard = newGame();
-const shipLengths = [5, 4, 3, 2, 1];
+let shipLengths = [5, 4, 3, 2, 1];
 loadModal();
 renderShip(5);
 addListenersToNewCells();
@@ -66,6 +66,16 @@ document.getElementById('start').addEventListener('click', () => {
     pickBoard.innerHTML = '';
     retrieveHumanDomBoard(firstBoard);
     loadModal();
-    // console.log(firstBoard.innerHTML);
   }
+});
+
+// Random ships button
+document.getElementById('random').addEventListener('click', () => {
+  const selectingCells = Array.from(document.getElementById('pick-block').childNodes);
+  clearDisplayShips(selectingCells);
+  humanBoard.newBoard();
+  const cells = humanBoard.randomShips();
+  cells.forEach((cell) => displayShip(cell, selectingCells));
+  shipLengths = [];
+  document.getElementById('piece').innerHTML = '';
 });

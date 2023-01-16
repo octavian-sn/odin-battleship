@@ -57,13 +57,26 @@ const GameBoard = () => {
     return field;
   };
 
-  // For testing purposes~~
-  const areas = [];
-
   return {
+    // testing(a) {
+    //   console.log(
+    //     `Ships are: ${ships}\n`,
+    //     `Is board empty ${this.isEmpty('board')}\n`,
+    //     `Are all sunk: ${this.allSunk()}\n`,
+    //     `Ships locations are: ${a}\n`,
+    //     `Board is: ${this.getBoard()}`,
+    //   );
+    // },
+
     // Return board
     getBoard() {
       return board;
+    },
+
+    // Clear all board's cells and ships array
+    newBoard() {
+      board.forEach((row) => row.forEach((cell) => cell[0] = ''));
+      while (ships.length > 0) ships.pop();
     },
 
     // Get occupied cells by ships, to use them for visual rendering
@@ -101,8 +114,6 @@ const GameBoard = () => {
         area.forEach((cell) => cell[0] = ship);
         // Add ship to board's ships array
         ships.push(ship);
-        // For testing purposes~~
-        areas.push([x, y, orientation, length]);
       }
       return this;
     },
@@ -123,19 +134,21 @@ const GameBoard = () => {
       return ships.every((ship) => ship.isSunk() === true);
     },
 
-    // Populate the board with random ships
+    // Populate the board with random ships and return cells occupied by the ships
     randomShips() {
       const shipLengths = [5, 4, 3, 2, 1];
+      let arr = [];
       let coordinates = randomCoord(shipLengths[0]);
 
       while (ships.length < 5) {
         const condition = this.isEmpty(...coordinates);
         if (Array.isArray(condition) || condition === true) {
           this.placeShip(...coordinates);
+          arr = arr.concat(this.getCellsOfShip(...coordinates));
           shipLengths.shift();
         } else coordinates = randomCoord(shipLengths[0]);
       }
-      return this;
+      return arr;
     },
 
   };

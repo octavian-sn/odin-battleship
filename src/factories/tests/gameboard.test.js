@@ -87,5 +87,7 @@ test('attacking the same location twice', () => {
 });
 
 test('populate board with random ships', () => {
-  expect(GameBoard().randomShips().allSunk()).toEqual(false);
+  const board = GameBoard();
+  board.randomShips();
+  expect(board.allSunk()).toEqual(false);
 });

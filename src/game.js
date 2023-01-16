@@ -58,10 +58,3 @@ export function playTurn(e) {
 export function retrieveHumanDomBoard(board) {
   humanSquareCells = Array.from(board.childNodes);
 }
-
-export function testing() {
-  console.log(
-    humanBoard.getShips(),
-    robotBoard.getShips(),
-  );
-}
